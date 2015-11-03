@@ -126,7 +126,11 @@ class User < ActiveRecord::Base
   end
 
   def bank_account_exists?
-    self.bank_account_owner? && self.iban? && self.bic?
+    bank_account_information.complete?
+  end
+
+  def bank_account_information
+    @bank_account_information ||= BankAccountInformation.new(iban, bic, bank_account_owner, bank_name)
   end
 
   def paypal_account_exists?
