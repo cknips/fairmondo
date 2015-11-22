@@ -25,10 +25,10 @@ class LineItemGroupsController < ApplicationController
   def download
     begin
       authorize LineItemGroup
-      start_date = Date.parse(params[:export_orders_from])
-      end_date = Date.parse(params[:export_orders_till])
-      send_data ''
-    rescue TypeError, ArgumentError
+      set_time_range
+      export_orders = ExportOrders.new(current_user, @time_range)
+      send_data export_orders.csv_data
+    rescue ArgumentError
       flash[:error] = 'Date is incorrect'
       redirect_to user_path(current_user)
     end
@@ -52,5 +52,15 @@ class LineItemGroupsController < ApplicationController
 
   def line_item_group_sold?
     @line_item_group && @line_item_group.sold_at?
+  end
+
+  def set_time_range
+    begin
+      start_date = Date.parse(params[:export_orders_from])
+      end_date = Date.parse(params[:export_orders_till])
+      @time_range = start_date..end_date
+    rescue TypeError, ArgumentError
+      raise ArgumentError.new
+    end
   end
 end

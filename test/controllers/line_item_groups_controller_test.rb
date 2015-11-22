@@ -28,7 +28,12 @@ describe LineItemGroupsController do
   describe "GET 'download'" do
     it 'should return 200 if user is logged in' do
       sign_in seller
+      export_orders = mock()
+      export_orders.expects(:csv_data).at_least_once
+      ExportOrders.stubs(:new).returns(export_orders)
+
       get :download, export_orders_from: '2015-09-22', export_orders_till: '2015-11-22'
+
       assert_response :success
     end
 
