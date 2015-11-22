@@ -7,4 +7,8 @@ class LineItemGroupPolicy < Struct.new(:user, :line_item_group)
     # XOR!!!
     user.is?(line_item_group.buyer) || user.is?(line_item_group.seller)
   end
+
+  def download?
+    user.present?
+  end
 end

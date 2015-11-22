@@ -5,8 +5,8 @@
 class LineItemGroupsController < ApplicationController
   respond_to :html
 
-  before_action :set_line_item_group
-  before_action :set_tab
+  before_action :set_line_item_group, only: :show
+  before_action :set_tab, only: :show
 
   def show
     authorize @line_item_group
@@ -20,6 +20,18 @@ class LineItemGroupsController < ApplicationController
       format.html
     end
     clear_belboon_tracking_token_from_user if line_item_group_sold?
+  end
+
+  def download
+    begin
+      authorize LineItemGroup
+      start_date = Date.parse(params[:export_orders_from])
+      end_date = Date.parse(params[:export_orders_till])
+      send_data ''
+    rescue TypeError, ArgumentError
+      flash[:error] = 'Date is incorrect'
+      redirect_to user_path(current_user)
+    end
   end
 
   private
