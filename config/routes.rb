@@ -78,6 +78,7 @@ Fairmondo::Application.routes.draw do
   resources :line_item_groups, only: [:show] do
     resources :payments, only: [:create, :show]
   end
+  get 'line_item_groups/download', to: 'line_item_groups#download', as: 'export_orders'
 
   match '/paypal/ipn_notification', to: 'payments#ipn_notification', as: 'ipn_notification', via: [:get, :post]
 

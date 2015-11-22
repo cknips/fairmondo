@@ -12,9 +12,12 @@ feature 'Export orders' do
   scenario 'User visits his profile and sees the export orders form' do
     login_as user
     visit user_path(user)
-    within('#seller_line_item_groups') do
-      click_button('#export_orders')
+    within '#seller_line_item_groups' do
+      fill_in 'export_orders_from', with: (Date.today << 2).to_s
+      fill_in 'export_orders_till', with: Date.today.to_s
+      click_button 'export_orders_submit'
     end
     page.status_code.must_equal 200
     page.response_headers['Content-Type'].must_equal 'text/csv'
+  end
 end
