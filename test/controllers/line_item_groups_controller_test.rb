@@ -30,6 +30,7 @@ describe LineItemGroupsController do
       sign_in seller
       export_orders = mock()
       export_orders.expects(:csv_data).at_least_once
+      export_orders.expects(:csv_filename).once
       ExportOrders.stubs(:new).returns(export_orders)
 
       get :download, export_orders_from: '2015-09-22', export_orders_till: '2015-11-22'
@@ -40,6 +41,13 @@ describe LineItemGroupsController do
     it 'should return an error if the start or end date is incorrect' do
       sign_in seller
       get :download, export_orders_from: '2015-09-22', export_orders_till: nil
+      assert_redirected_to user_path(seller)
+      flash[:error].must_equal 'Date is incorrect'
+    end
+
+    it 'should return an error if the start date is bigger than end date' do
+      sign_in seller
+      get :download, export_orders_from: '2015-11-22', export_orders_till: '2015-09-22'
       assert_redirected_to user_path(seller)
       flash[:error].must_equal 'Date is incorrect'
     end

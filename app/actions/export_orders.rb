@@ -18,6 +18,10 @@ class ExportOrders
     csv_data
   end
 
+  def csv_filename
+    "fairmondo_orders_#{@time_range.begin}_#{@time_range.end}.csv"
+  end
+
   private
 
   def set_business_transactions

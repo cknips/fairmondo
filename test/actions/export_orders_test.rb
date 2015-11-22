@@ -28,5 +28,12 @@ describe ExportOrders do
       assert_equal("Transaction ID;Article ID;Title;Quantity\n#{business_transaction.id};#{business_transaction.article_id};#{business_transaction.article.title};#{business_transaction.quantity_bought}\n",
                    export_orders.csv_data)
     end
+
+    it 'should generate a filename containing the dates' do
+      date_range = Date.parse('2015-01-01')..Date.parse('2015-10-15')
+      export_orders = ExportOrders.new(user, date_range)
+      assert_equal('fairmondo_orders_2015-01-01_2015-10-15.csv',
+                   export_orders.csv_filename)
+    end
   end
 end
