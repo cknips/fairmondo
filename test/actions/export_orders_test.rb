@@ -10,7 +10,7 @@ describe ExportOrders do
 
   describe 'initialisation' do
     it 'should initialize' do
-      export_orders = ExportOrders.new(user, time_range)
+      ExportOrders.new(user, time_range)
     end
   end
 
