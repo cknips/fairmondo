@@ -7,7 +7,8 @@ require_relative '../test_helper'
 include Warden::Test::Helpers
 
 feature 'Export orders' do
-  let(:user) { FactoryGirl.create :private_user }
+  let(:bt) { FactoryGirl.create :business_transaction }
+  let(:user) { bt.seller }
 
   scenario 'User visits his profile and sees the export orders form' do
     login_as user
@@ -19,5 +20,10 @@ feature 'Export orders' do
     end
     page.status_code.must_equal 200
     page.response_headers['Content-Type'].must_equal 'text/csv'
+  end
+
+  scenario 'Guest visits profile and does not see the export orders form' do
+    visit user_path(user)
+    page.wont_have_selector('#export_orders_from')
   end
 end

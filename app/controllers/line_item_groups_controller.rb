@@ -27,7 +27,13 @@ class LineItemGroupsController < ApplicationController
       authorize LineItemGroup
       set_time_range
       export_orders = ExportOrders.new(current_user, @time_range)
-      send_data(export_orders.csv_data, filename: export_orders.csv_filename, type: 'text/csv')
+      csv_data = export_orders.csv_data
+      if csv_data.empty?
+        flash[:error] = 'Im vom Dir angegebenen Zeitraum liegen keine Bestellungen.'
+        redirect_to user_path(current_user)
+      else
+        send_data(csv_data, filename: export_orders.csv_filename, type: 'text/csv')
+      end
     rescue ArgumentError
       flash[:error] = 'Date is incorrect'
       redirect_to user_path(current_user)

@@ -28,14 +28,27 @@ describe LineItemGroupsController do
   describe "GET 'download'" do
     it 'should return 200 if user is logged in' do
       sign_in seller
+      csv_data = stub(empty?: false)
       export_orders = mock()
-      export_orders.expects(:csv_data).at_least_once
+      export_orders.expects(:csv_data).once.returns(csv_data)
       export_orders.expects(:csv_filename).once
       ExportOrders.stubs(:new).returns(export_orders)
 
       get :download, export_orders_from: '2015-09-22', export_orders_till: '2015-11-22'
 
       assert_response :success
+    end
+
+    it 'should return an error if no orders can be found' do
+      sign_in seller
+      csv_data = stub(empty?: true)
+      export_orders = stub(csv_data: csv_data)
+      ExportOrders.stubs(:new).returns(export_orders)
+
+      get :download, export_orders_from: '2015-09-22', export_orders_till: '2015-11-22'
+
+      assert_redirected_to user_path(seller)
+      flash[:error].must_equal 'Im vom Dir angegebenen Zeitraum liegen keine Bestellungen.'
     end
 
     it 'should return an error if the start or end date is incorrect' do
