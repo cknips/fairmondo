@@ -8,11 +8,11 @@
       h3= link_to truncate(article.title, :length => 65), article_path(article.slug), :title => article.title, data: { push: true }
       .Article-price= humanize_money_or_cents article.price
 
+      = render "articles/show/basic_price", article: article
+
       - if article.belongs_to_legal_entity? && article.vat != 0
         .Article-vat
-          = "#{t('article.included_short')} #{article.vat.to_s}% #{t('article.vat')}"
-
-      = render "articles/show/basic_price", article: article
+          = "#{t('article.included_short')} #{t('article.vat_abbr')}"
 
       - if article.seller_ngo
         .Article-donation

@@ -58,14 +58,14 @@ de:
         utz_certified: UTZ certified
         tuev_eco_kreis: TÜV ECO-Kreis
       basic_price_amount:
-        kilogram: 1 Kilogramm
-        gram: 100 Gramm
-        liter: 1 Liter
-        milliliter: 100 Milliliter
-        cubicmeter: 1 Kubikmeter
-        meter: 1 Meter
-        squaremeter: 1 Quadratmeter
-        portion: 1 Portion
+        kilogram_html: kg
+        gram_html: 100 g
+        liter_html: l
+        milliliter_html: 100 ml
+        cubicmeter_html: m<sup>3</sup>
+        meter_html: m
+        squaremeter_html: m<sup>2</sup>
+        portion_html: Portion
       friendly_percent_organisation:
         transparency_international: Transparency International
     fair_trust_questionnaire:

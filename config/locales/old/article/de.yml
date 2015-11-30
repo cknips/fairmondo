@@ -63,14 +63,14 @@ de:
     activate_to_buy: "Ich will alle meine Artikel zum Verkauf freischalten"
     not_activate_to_buy: "Ich will meine Artikel nicht freischalten"
     delete_confirm: "Soll der Artikel '%{name}' wirklich gelöscht werden?"
-    included_short: "Inkl."
+    included_short: "inkl."
     deactivate_confirm: "Um einen Artikel bearbeiten oder löschen zu können, musst Du diesen zuerst vom Marktplatz nehmen. Bitte beachte, dass der Artikel in der Zeit nicht mehr auf dem Marktplatz erscheint und auch aus allen Sammlungen entfernt wird, welche diesen enthalten. Dadurch sollen interessierte Käufer*innen, die sich zum Beispiel den Artikel für einen Kauf vorgemerkt haben, vor unbemerkten Änderungen an dem Artikel geschützt werden. <br/><br/>"
     vat: "Mehrwertsteuer"
+    vat_abbr: "MwSt."
     price_label: "Verkaufspreis"
     vat_included: "inkl. %{mwst}% MwSt."
     free_transport_at: "Verkäufer*in bietet kostenlosen Versand ab %{price}"
     free_transport: "Kostenloser Versand"
-    included_short: "Inkl."
     transport:
       placeholders:
         type1_provider: "z.B. DHL Paket"
