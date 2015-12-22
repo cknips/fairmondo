@@ -230,6 +230,22 @@ feature 'User account management' do
     user.about.must_equal 'foobar'
   end
 
+  scenario 'legal entity fills in alternative email addresses' do
+    user = FactoryGirl.create :legal_entity
+    login_as user
+    visit edit_user_registration_path user
+
+    within '#alternative_email_step' do
+      fill_in 'alternative_invoicing_email', with: 'invoices@example.com'
+      fill_in 'alternative_order_notifications_email', with: 'orders@example.com'
+    end
+
+    click_button I18n.t 'formtastic.actions.update'
+
+    user.email_for_invoicing.must equal 'invoices@example.com'
+    user.email_for_order_notifications 'orders@example.com'
+  end
+
   scenario 'private user wants to edit his account' do
     @user =  FactoryGirl.create :private_user
     login_as @user
@@ -241,6 +257,8 @@ feature 'User account management' do
       page.wont_have_content I18n.t 'formtastic.labels.user.terms'
       page.wont_have_content I18n.t 'formtastic.labels.user.cancellation'
       page.wont_have_content I18n.t 'formtastic.labels.user.about'
+
+      page.wont_have_css '#alternative_email_step'
     end
   end
 end
