@@ -66,6 +66,8 @@ describe User do
     it { subject.must_respond_to :heavy_uploader }
     it { subject.must_respond_to :belboon_tracking_token }
     it { subject.must_respond_to :voluntary_contribution }
+    it { subject.must_respond_to :invoicing_email }
+    it { subject.must_respond_to :order_notifications_email }
   end
 
   describe 'associations' do
