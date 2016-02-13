@@ -32,5 +32,8 @@ module User::Validations
     validates :type, inclusion: { in: ['LegalEntity'] }, if: :is_ngo?
 
     validates :voluntary_contribution, inclusion: { in: [nil, 3, 5, 10] }
+
+    validates_format_of :invoicing_email, with: Devise.email_regexp, allow_blank: true
+    validates_format_of :order_notifications_email, with: Devise.email_regexp, allow_blank: true
   end
 end
