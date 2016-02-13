@@ -262,6 +262,11 @@ describe User do
     end
 
     describe '#email_for_order_notifications' do
+      it 'should use order notifications email if present' do
+        le_stubbed.order_notifications_email = 'orders@example.com'
+        le_stubbed.email_for_order_notifications.must_equal 'orders@example.com'
+      end
+
       it 'should use standard email address if no order notifications email is present' do
         le_stubbed.email_for_order_notifications.must_equal le_stubbed.email
       end

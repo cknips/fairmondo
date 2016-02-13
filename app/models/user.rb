@@ -221,7 +221,11 @@ class User < ActiveRecord::Base
   end
 
   def email_for_order_notifications
-    email
+    if order_notifications_email.empty?
+      email
+    else
+      order_notifications_email
+    end
   end
 
   private
