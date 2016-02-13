@@ -551,8 +551,8 @@ ActiveRecord::Schema.define(version: 20160212233750) do
     t.string   "belboon_tracking_token"
     t.datetime "belboon_tracking_token_set_at"
     t.integer  "voluntary_contribution"
-    t.string   "invoicing_email"
-    t.string   "order_notifications_email"
+    t.string   "invoicing_email",                              default: "",    null: false
+    t.string   "order_notifications_email",                    default: "",    null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
