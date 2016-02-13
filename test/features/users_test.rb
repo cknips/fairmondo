@@ -235,15 +235,14 @@ feature 'User account management' do
     login_as user
     visit edit_user_registration_path user
 
-    within '#alternative_emails_step' do
-      fill_in 'user_invoicing_email', with: 'invoices@example.com'
-      fill_in 'user_order_notifications_email', with: 'orders@example.com'
-    end
+    fill_in 'user_invoicing_email', with: 'invoices@example.com'
+    fill_in 'user_order_notifications_email', with: 'orders@example.com'
 
-    click_button I18n.t 'formtastic.actions.update'
+    click_button I18n.t('formtastic.actions.update')
 
-    user.email_for_invoicing.must equal 'invoices@example.com'
-    user.email_for_order_notifications 'orders@example.com'
+    user.reload
+    user.email_for_invoicing.must_equal 'invoices@example.com'
+    user.email_for_order_notifications.must_equal 'orders@example.com'
   end
 
   scenario 'private user wants to edit his account' do
