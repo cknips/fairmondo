@@ -33,7 +33,7 @@ module User::Validations
 
     validates :voluntary_contribution, inclusion: { in: [nil, 3, 5, 10] }
 
-    validates_format_of :invoicing_email, with: Devise.email_regexp, allow_blank: true
-    validates_format_of :order_notifications_email, with: Devise.email_regexp, allow_blank: true
+    validates :invoicing_email, format: { with: Devise.email_regexp }, allow_blank: true
+    validates :order_notifications_email, format: { with: Devise.email_regexp }, allow_blank: true
   end
 end
