@@ -252,22 +252,22 @@ describe User do
 
     describe '#email_for_invoicing' do
       it 'should use invoicing email if present' do
-        le_stubbed.invoicing_email = 'invoices@example.com'
-        le_stubbed.email_for_invoicing.must_equal 'invoices@example.com'
+        le_stubbed.email_for_invoicing.must_equal le_stubbed.invoicing_email
       end
 
       it 'should use standard email address if no invoicing email is present' do
+        le_stubbed.invoicing_email = ''
         le_stubbed.email_for_invoicing.must_equal le_stubbed.email
       end
     end
 
     describe '#email_for_order_notifications' do
       it 'should use order notifications email if present' do
-        le_stubbed.order_notifications_email = 'orders@example.com'
-        le_stubbed.email_for_order_notifications.must_equal 'orders@example.com'
+        le_stubbed.email_for_order_notifications.must_equal le_stubbed.order_notifications_email
       end
 
       it 'should use standard email address if no order notifications email is present' do
+        le_stubbed.order_notifications_email = ''
         le_stubbed.email_for_order_notifications.must_equal le_stubbed.email
       end
     end
