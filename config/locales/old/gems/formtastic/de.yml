@@ -52,6 +52,8 @@ de:
         free_transport_available: Ich versende ab einem
         free_transport_at_price: Bestellwert von
         tos_accepted: "Ich stimme %{legal} und %{privacy} zu."
+        invoicing_email: "E-Mail-Adresse für Rechnungen"
+        order_notifications_email: "E-Mail-Adresse für Bestellbenachrichtigungen"
       private_user:
         <<: *user
       legal_entity:
@@ -234,6 +236,7 @@ de:
         profile: Über mich
         payment: Zahlungsoptionen
         terms: Rechtliches
+        alternative_emails: Optionale E-Mail-Adressen
         unified_transport: Angaben zu Versandrabatten
         addresses: Versandadressen
       private_user:

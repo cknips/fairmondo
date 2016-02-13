@@ -236,8 +236,8 @@ feature 'User account management' do
     visit edit_user_registration_path user
 
     within '#alternative_emails_step' do
-      fill_in 'alternative_invoicing_email', with: 'invoices@example.com'
-      fill_in 'alternative_order_notifications_email', with: 'orders@example.com'
+      fill_in 'user_invoicing_email', with: 'invoices@example.com'
+      fill_in 'user_order_notifications_email', with: 'orders@example.com'
     end
 
     click_button I18n.t 'formtastic.actions.update'
