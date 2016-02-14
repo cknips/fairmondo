@@ -231,7 +231,11 @@ feature 'User account management' do
   end
 
   scenario 'legal entity fills in alternative email addresses' do
-    user = FactoryGirl.create :legal_entity
+    user = FactoryGirl.create :legal_entity, invoicing_email: '', order_notifications_email: ''
+
+    user.email_for_invoicing.must_equal user.email
+    user.email_for_order_notifications.must_equal user.email
+
     login_as user
     visit edit_user_registration_path user
 
