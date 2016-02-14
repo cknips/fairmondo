@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
   end
 
   def email_for_invoicing
-    if invoicing_email.empty?
+    if self.is_a?(PrivateUser) || invoicing_email.empty?
       email
     else
       invoicing_email
@@ -221,7 +221,7 @@ class User < ActiveRecord::Base
   end
 
   def email_for_order_notifications
-    if order_notifications_email.empty?
+    if self.is_a?(PrivateUser) || order_notifications_email.empty?
       email
     else
       order_notifications_email
