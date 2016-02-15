@@ -39,8 +39,6 @@ coverage
 #Rails Best Practice
 rails_best_practices_output.html
 
-config/secrets.yml
-
 #api keys
 config/paypal_adaptive.yml
 #email addresses
@@ -121,9 +119,6 @@ paypal_adaptive.yml
 *.DS_Store
 
 config/courier.yml
-
-# Foreman Procfile
-Procfile
 
 # Afilliate csv
 public/fairmondo_articles.csv

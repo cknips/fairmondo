@@ -54,11 +54,12 @@ Fairmondo::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "assets%d.fairmondo.de"
+  # config.action_controller.asset_host = "assets%d.fairmondo.de"
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'www.fairmondo.de' ,:protocol => 'https' }
+  config.action_mailer.default_url_options = { :host => 'fairmondo.herokuapp.com',
+                                               :protocol => 'https' }
 
   config.dependency_loading = true if $rails_rake_task
   #http://stackoverflow.com/questions/4300240/rails-3-rake-task-cant-find-model-in-production
@@ -70,7 +71,17 @@ Fairmondo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  Paperclip.options[:command_path] = "/usr/bin"
+  # Paperclip.options[:command_path] = "/usr/bin"
+  # Heroku-TODO: s3 settings
+  # gem 'aws-sdk'
+  # config.paperclip_defaults = {
+  #   :storage => :s3,
+  #   :s3_credentials => {
+  #     :bucket => ENV['S3_BUCKET_NAME'],
+  #     :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+  #     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  #   }
+  # }
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = {
@@ -82,13 +93,20 @@ Fairmondo::Application.configure do
   }
 
   # Premailer configuration
-  Premailer::Rails.config.merge!(base_url: "https://www.fairmondo.de")
+  Premailer::Rails.config.merge!(base_url: "https://fairmondo.herokuapp.com")
 
   # Set host by default
-  Rails.application.routes.default_url_options[:host] = 'https://www.fairmondo.de'
+  Rails.application.routes.default_url_options[:host] =
+    'https://fairmondo.herokuapp.com'
 
   #Memcached
-  config.cache_store = :dalli_store, '10.0.2.180', { :namespace => "fairmondo", :expires_in => 1.day, :compress => true }
+  config.cache_store = :dalli_store,
+                       (ENV["MEMCACHIER_CHARCOAL_SERVERS"] || "").split(","),
+                       {:username => ENV["MEMCACHIER_CHARCOAL_USERNAME"],
+                       :password => ENV["MEMCACHIER_CHARCOAL_PASSWORD"],
+                       :failover => true,
+                       :socket_timeout => 1.5,
+                       :socket_failure_delay => 0.2 }
 
   # Rack-Rewrite paths
   require "#{config.root}/config/rewrites.rb"
@@ -98,11 +116,12 @@ Fairmondo::Application.configure do
   config.lograge.enabled = true
 
   # Notify exceptions by email
-  config.middleware.use ExceptionNotification::Rack,
-    ignore_crawlers: %w{Googlebot bingbot},
-    email: {
-      email_prefix: '[Production] ',
-      sender_address: %{"Exception notifier" <notifier@fairmondo.de>},
-      exception_recipients: %w{exceptions@fairmondo.de}
-    }
+  # Heroku-TODO: E-Mail-Settings
+  # config.middleware.use ExceptionNotification::Rack,
+  #   ignore_crawlers: %w{Googlebot bingbot},
+  #   email: {
+  #     email_prefix: '[Production] ',
+  #     sender_address: %{"Exception notifier" <notifier@fairmondo.de>},
+  #     exception_recipients: %w{exceptions@fairmondo.de}
+  #   }
 end

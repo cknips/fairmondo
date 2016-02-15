@@ -124,7 +124,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
 
-  gem 'letter_opener' # emails in browser
+  gem 'mailcatcher'
 
   # debugging in chrome with RailsPanel
   gem 'meta_request'
@@ -133,8 +133,8 @@ group :development do
   gem 'quiet_assets'
 
   # er diagramm generation
-  gem 'rails-erd'
-  gem 'thin' # Replace Webrick
+  # gem 'rails-erd'
+
 
   # Guard
   gem 'guard'
@@ -202,3 +202,9 @@ group :development, :test, :staging do
   # styleguides
   gem 'nkss-rails', github: 'nadarei/nkss-rails'
 end
+
+# Heroku
+gem 'rails_12factor', group: :production
+gem 'puma'
+
+ruby "2.2.2"
