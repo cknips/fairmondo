@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   ## Global actions
   before_action :unset_cart
-  before_action :profile_request
+  # before_action :profile_request
 
   ## Affiliate Network
   include BelboonTracking
