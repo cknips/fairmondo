@@ -85,11 +85,14 @@ Fairmondo::Application.configure do
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings  = {
-    port: 25,
-    authentication: :login,
-    address: Rails.application.secrets.actionmailer_address,
-    user_name: Rails.application.secrets.actoinmailer_username,
-    password: Rails.application.secrets.actionmailer_password
+    authentication:       :plain,
+    enable_starttls_auto: true,
+    ssl:                  true,
+    port:                 456,
+    openssl_verify_mode:  "none",
+    address:   Rails.application.secrets.actionmailer_address,
+    user_name: Rails.application.secrets.actionmailer_username,
+    password:  Rails.application.secrets.actionmailer_password
   }
 
   # Premailer configuration
@@ -116,12 +119,11 @@ Fairmondo::Application.configure do
   config.lograge.enabled = true
 
   # Notify exceptions by email
-  # Heroku-TODO: E-Mail-Settings
-  # config.middleware.use ExceptionNotification::Rack,
-  #   ignore_crawlers: %w{Googlebot bingbot},
-  #   email: {
-  #     email_prefix: '[Production] ',
-  #     sender_address: %{"Exception notifier" <notifier@fairmondo.de>},
-  #     exception_recipients: %w{exceptions@fairmondo.de}
-  #   }
+  config.middleware.use ExceptionNotification::Rack,
+    ignore_crawlers: %w{Googlebot bingbot},
+    email: {
+      email_prefix: '[Production] ',
+      sender_address: %{"Exception notifier" <notifier@fairmondo-test.herokuapp.com},
+      exception_recipients: %w{alexander.huber@flow.codes}
+    }
 end
