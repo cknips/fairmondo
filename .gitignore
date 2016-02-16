@@ -42,7 +42,7 @@ rails_best_practices_output.html
 #api keys
 config/paypal_adaptive.yml
 #email addresses
-config/email_addresses.yml
+# config/email_addresses.yml
 
 #Solr Development
 solr/data/**/*
