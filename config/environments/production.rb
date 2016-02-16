@@ -58,7 +58,7 @@ Fairmondo::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'fairmondo.herokuapp.com',
+  config.action_mailer.default_url_options = { :host => 'fairmondo-test.herokuapp.com',
                                                :protocol => 'https' }
 
   config.dependency_loading = true if $rails_rake_task
@@ -93,11 +93,11 @@ Fairmondo::Application.configure do
   }
 
   # Premailer configuration
-  Premailer::Rails.config.merge!(base_url: "https://fairmondo.herokuapp.com")
+  Premailer::Rails.config.merge!(base_url: "https://fairmondo-test.herokuapp.com")
 
   # Set host by default
   Rails.application.routes.default_url_options[:host] =
-    'https://fairmondo.herokuapp.com'
+    'https://fairmondo-test.herokuapp.com'
 
   #Memcached
   config.cache_store = :dalli_store,
