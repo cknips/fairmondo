@@ -21,19 +21,20 @@ rescue LoadError
 end
 
 
-# Sidekiq.configure_server do |config|
-#   config.redis = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' } if Rails.env.production?
-#   begin
-#     require 'sidekiq/pro/reliable_fetch'
-#   rescue LoadError
-#   end
-# end
 
-# if Rails.env.production?
-#   Sidekiq.configure_client do |config|
-#     config.redis = { url: 'redis://10.0.2.181:6379', namespace: 'fairnopoly' }
-#   end
-# end
+if Rails.env.production?
+  Sidekiq.configure_client do |config|
+    config.redis = { url: ENV["REDIS_PROVIDER"] }
+  end
+
+  Sidekiq.configure_server do |config|
+    config.redis = { url: ENV["REDIS_PROVIDER"] }
+    begin
+      require 'sidekiq/pro/reliable_fetch'
+    rescue LoadError
+    end
+  end
+end
 
 
 
