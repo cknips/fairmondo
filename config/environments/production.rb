@@ -109,8 +109,8 @@ Fairmondo::Application.configure do
                        :socket_failure_delay => 0.2 }
 
   # Rack-Rewrite paths
-  require "#{config.root}/config/rewrites.rb"
-  config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
+  # require "#{config.root}/config/rewrites.rb"
+  # config.middleware.insert_before(Rack::Runtime, Rack::Rewrite, klass: Rack::Rewrite::FairmondoRuleSet)
 
   # Better logging
   config.lograge.enabled = true
