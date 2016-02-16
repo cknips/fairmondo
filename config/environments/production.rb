@@ -88,7 +88,7 @@ Fairmondo::Application.configure do
     authentication:       :plain,
     enable_starttls_auto: true,
     ssl:                  true,
-    port:                 143,
+    port:                 465,
     openssl_verify_mode:  "none",
     address:   Rails.application.secrets.actionmailer_address,
     user_name: Rails.application.secrets.actionmailer_username,
