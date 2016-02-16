@@ -101,8 +101,7 @@ gem 'nokogiri'
 gem 'prawn_rails' # pdf generation
 
 # ---------- Monitoring ----------
-gem 'newrelic_rpm',  group: [:production, :staging]
-gem 'rack-mini-profiler'
+# gem 'newrelic_rpm',  group: [:production, :staging]
 gem 'lograge'
 gem 'exception_notification'
 
@@ -186,6 +185,8 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'coveralls', require: false
+
+  gem 'rack-mini-profiler'
 
   # test suite additions
   gem 'rails_best_practices'
